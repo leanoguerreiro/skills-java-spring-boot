@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+.gitignore
 
 ### STS ###
 .apt_generated
@@ -20,7 +21,7 @@ target/
 *.iml
 *.ipr
 /.idea
-src/main/resources/.env
+.env
 
 ### NetBeans ###
 /nbproject/private/
