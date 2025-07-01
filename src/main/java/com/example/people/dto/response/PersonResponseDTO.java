@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @Getter
 public class PersonResponseDTO {
-    private Long id;
+    private final Long id;
 
-    private String name;
+    private final String name;
 
-    private String cpf;
+    private final String cpf;
 
-    private Integer age;
+    private final Integer age;
 
     public PersonResponseDTO(Person person) {
             this.id = person.getId();
