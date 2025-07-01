@@ -14,5 +14,5 @@ public interface PersonService {
 
     PersonResponseDTO update(PersonRequestDTO dto, Long id);
 
-    String deleteById(Long id);
+    void deleteById(Long id);
 }

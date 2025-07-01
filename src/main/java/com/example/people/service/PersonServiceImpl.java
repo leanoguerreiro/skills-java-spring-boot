@@ -22,26 +22,13 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDTO findById(Long id) {
-
-        if (returnPerson(id) == null) {
-            System.out.println("Invalid person ID");
-            return null;
-        }
-
         Person person = returnPerson(id);
-
         return personMapper.toPersonDTO(person);
     }
 
     @Override
     public List<PersonResponseDTO> findAll() {
-
-        if (returnAll() == null) {
-            throw new IndexOutOfBoundsException("Invalid person ID");
-        }
-
         List<Person> peopleList = personRepository.findAll();
-
         return personMapper.toPersonDTO(peopleList);
     }
 
@@ -63,18 +50,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public String deleteById(Long id) {
-
+    public void deleteById(Long id) {
         personRepository.deleteById(id);
-
-        return "person: "+id+" deleted successfully";
     }
 
     private Person returnPerson(Long id) {
         return personRepository.findById(id).orElseThrow(()-> new RuntimeException("person not found"));
     }
 
-    private Person returnAll() {
-        return  personRepository.findAll().stream().findFirst().orElseThrow(()-> new RuntimeException("person not found"));
-    }
 }

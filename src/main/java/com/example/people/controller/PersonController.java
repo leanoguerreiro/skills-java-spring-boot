@@ -3,6 +3,7 @@ package com.example.people.controller;
 import com.example.people.dto.request.PersonRequestDTO;
 import com.example.people.dto.response.PersonResponseDTO;
 import com.example.people.service.PersonService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonResponseDTO> save(@RequestBody PersonRequestDTO personDTO, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<PersonResponseDTO> save(@Valid @RequestBody PersonRequestDTO personDTO, UriComponentsBuilder uriBuilder){
 
         PersonResponseDTO personResponseDTO = personService.save(personDTO);
 
@@ -39,13 +40,14 @@ public class PersonController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<PersonResponseDTO> update(@RequestBody PersonRequestDTO personDTO, @PathVariable(value = "id") Long id){
+    public ResponseEntity<PersonResponseDTO> update(@Valid @RequestBody PersonRequestDTO personDTO, @PathVariable(value = "id") Long id){
         return  ResponseEntity.ok().body(personService.update(personDTO,id));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> delete(@PathVariable(value = "id") Long id){
-        return ResponseEntity.ok().body(personService.deleteById(id));
+        personService.deleteById(id);
+        return ResponseEntity.notFound().build();
     }
 
 }
